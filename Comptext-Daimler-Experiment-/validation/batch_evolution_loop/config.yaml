@@ -1,0 +1,12 @@
+batch_size: 20
+top_k: 5
+seed: 100
+
+scoring_weights:
+  correctness: 0.55
+  performance: 0.30
+  regression_risk: 0.15
+
+execution:
+  timeout_seconds: 300
+  parallel: false

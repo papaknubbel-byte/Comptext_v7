@@ -1,0 +1,37 @@
+[
+  {
+    "id": "BS-001",
+    "domain": "XENTRY",
+    "label": "Critical Brake Actuator Failure",
+    "text": "--- XENTRY DIAGNOSIS ---\nVIN: WDB906232N4001122\nODO: 184,200 km\nCONTROL_UNIT: EBS (Electronic Brake System)\nDTC: P050087 - Speed Sensor Fault (Implausible Signal)\nDTC: P060044 - CAN-Bus Communication Error\nOBSERVATION: Immediate brake force reduction. Dash warning active.\nURGENCY: P1_KRITISCH\nTECHNICIAN: PERS_A1B2C3",
+    "expected_prio": "P1_KRITISCH"
+  },
+  {
+    "id": "BS-002",
+    "domain": "MO360",
+    "label": "Assembly Line Thermal Anomaly",
+    "text": "--- MO360 MANUFACTURING --- \nSHIFT: Night Shift (2026-05-10)\nLINE: Chassis Assembly 3\nSTATION: Robot-XR5\nMETRIC: Joint-3 Temp 82C (Threshold 75C)\nALERT: Predictive maintenance triggered.\nSTATUS: P2_DRINGEND - Schedule inspection during next break.\nOPERATOR: PERS_998877",
+    "expected_prio": "P2_DRINGEND"
+  },
+  {
+    "id": "BS-003",
+    "domain": "SAP",
+    "label": "Bulk Parts Logistics Update",
+    "text": "--- SAP-MM SUPPLY CHAIN ---\nPO: 4500991188\nMATERIAL: OIL-DRAIN-PLUG-V8\nQTY: 5000 units\nVENDOR: PARTS-FAST-EUROPE\nSTATUS: Shipped (Tracking: DE-LL-99283)\nETA: 2026-05-14\nNOTE: System verified stock levels.",
+    "expected_prio": "P3_ROUTINE"
+  },
+  {
+    "id": "BS-004",
+    "domain": "XENTRY",
+    "label": "Minor Infotainment Glitch",
+    "text": "--- XENTRY DIAGNOSIS ---\nVIN: WDB906232N5566778\nODO: 12,000 km\nCONTROL_UNIT: Audio-Gateway\nDTC: U1234 - Software Sync Lag\nSTATUS: P3_ROUTINE - Reset on next service.\nTECHNICIAN: PERS_776655",
+    "expected_prio": "P3_ROUTINE"
+  },
+  {
+    "id": "BS-005",
+    "domain": "COMPOUND",
+    "label": "Multi-incident Ecosystem Event",
+    "text": "--- SOURCE: MO360 ---\nLINE_D: EMERGENCY_STOP | REASON: THERMAL_OVERLOAD\n--- SOURCE: SAP-MM ---\nPO_4500112233: MATERIAL: CYLINDER-HEAD | STATUS: DELAYED\n--- SOURCE: XENTRY ---\nVIN: WDB906232N3123456 | DTC: P0300 (ACTIVE) | STATUS: P1_ESCALATION",
+    "expected_prio": "P1_KRITISCH"
+  }
+]

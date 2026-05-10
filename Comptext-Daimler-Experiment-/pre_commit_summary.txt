@@ -1,0 +1,6 @@
+Resolved PR comments:
+1. Fixed numbering in 'Bekannte Limitations' section of README.md.
+2. Updated ALLOWED_ORIGINS default in api.py to use React's default port 3000 instead of Streamlit's 8501.
+3. Updated Makefile's dev target to correctly point to dev-api.
+4. Verified that ALLOWED_ORIGINS points to the expected React frontend locations.
+5. Removed src/api/main.py completely as it contained legacy medical domain code and was a duplicate entry point.

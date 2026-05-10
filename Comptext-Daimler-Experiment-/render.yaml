@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: comptext-daimler-buses
+    runtime: docker
+    region: frankfurt
+    plan: free
+    dockerCommand: uvicorn api:app --host 0.0.0.0 --port $PORT --workers 2
+    disk:
+      name: cache
+      mountPath: /cache
+      sizeGB: 10
+    envVars:
+      - key: LLM_BACKEND
+        value: mock
+      - key: CACHE_MAX_SIZE
+        value: "256"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: LOG_FORMAT
+        value: json
+      - key: ALLOWED_ORIGINS
+        value: "https://comptext-daimler-buses.onrender.com"
+      - key: TINYBIRD_TOKEN
+        value: "p.eyJ1IjogIjgyYWViMDkwLWRlODUtNGVjMy1iM2RiLTM2ZDY2NjFlZGI1MSIsICJpZCI6ICJjMDg3ZmJmMS0yYzRmLTQ1MmUtOWI4Ni1lZTFlNGRlMjI0NjEiLCAiaG9zdCI6ICJnY3AtZXVyb3BlLXdlc3QyIn0.zJ1UM1Zt2zav1iyxhPI3_FxSsF8Fkp4fi8YfAsqvZbc"
+      - key: OTEL_EXPORTER_OTLP_ENDPOINT
+        sync: false
