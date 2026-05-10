@@ -1,0 +1,121 @@
+{
+  "name": "CompText V6 - Industrial Showcase Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "comptext-v6-ingest",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/v1/optimize/xentry",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"log_text\": \"{{$json[\"body\"][\"log_text\"]}}\",\n  \"debug\": true\n}",
+        "options": {}
+      },
+      "name": "CompText API Call",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"status\"]}}",
+              "value2": "success"
+            }
+          ]
+        }
+      },
+      "name": "Check Status",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Success Path\nProcessed via KVTC-V6\nSavings: {{$json[\"metrics\"][\"savings\"]}}%"
+      },
+      "name": "Note Success",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Error Recovery\nHint: {{$json[\"recovery_hint\"]}}"
+      },
+      "name": "Note Error",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        450
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "CompText API Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CompText API Call": {
+      "main": [
+        [
+          {
+            "node": "Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status": {
+      "main": [
+        [
+          {
+            "node": "Note Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Note Error",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  }
+}
